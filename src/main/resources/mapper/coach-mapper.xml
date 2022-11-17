@@ -6,6 +6,61 @@
     <sql id="baseQuery">
         select id,
                coach_name,
-               coach
+               coach_height,
+               coach_weight,
+               coach_header
+        from coach
     </sql>
+
+    <!--1. 根据id查询教练信息-->
+    <select id="getCoachById" resultType="com.gym.entity.Coach">
+        <include refid="baseQuery"/>
+        where coach_id = #{id}
+    </select>
+
+    <!--2. 查询所有教练-->
+    <select id="getAllCoaches" resultType="com.gym.entity.Coach">
+        <include refid="baseQuery"/>
+    </select>
+
+    <!--3. 模糊查询教练信息-->
+    <select id="getCoachByVague" resultType="com.gym.entity.Coach">
+        <include refid="baseQuery"/>
+        where
+        coach_name like concat('%',#{keywords},'%') or
+        coach_height like concat('%',#{keywords},'%') or
+        coach_weight like concat('%',#{keywords},'%') or
+        coach_header like concat('%',#{keywords},'%')
+    </select>
+
+    <!--4. 查询所有教练数量-->
+    <select id="getAllCoachesNumber" resultType="java.lang.Integer">
+        select count(*)
+        from coach
+    </select>
+
+    <!--5. 注册新教练-->
+    <insert id="insertCoach">
+        insert into coach (coach_name, coach_height, coach_weight, coach_header)
+        values (#{coachName}, #{coachHeight}, ${coachWeight}, ${coachHeader});
+    </insert>
+
+    <!--6. 注销教练信息-->
+    <delete id="deleteCoach">
+        delete
+        from coach
+        where coach_id = #{id}
+    </delete>
+
+    <!--7. 更新教练信息-->
+    <update id="updateCoach">
+        update coach
+        set coach_name  = #{coachName},
+            coach_height=#{coachHeight},
+            coach_weight=#{coachWeight},
+            coach_header=#{coachHeader}
+        where coach_id = #{coachId}
+    </update>
+
+
 </mapper>
