@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gym.dao.MemberMapper">
+    <!--基础查询信息-->
+    <sql id="baseQuery">
+        select member_id,
+               member_number,
+               member_password,
+               member_name,
+               member_sex,
+               member_type,
+               member_birth,
+               member_phone,
+               member_address,
+               member_start_time,
+               member_end_time
+        from member
+    </sql>
+
+    <!--1. 查询所有会员信息-->
+    <select id="getAllMembers" resultType="com.gym.entity.Member">
+        <include refid="baseQuery"/>
+    </select>
+
+    <!--2. 根据id获取会员信息-->
+    <select id="getMemberById" resultType="com.gym.entity.Member">
+        <include refid="baseQuery"/>
+        where member_id = #{id}
+    </select>
+
+    <!--3. 模糊查询-->
+    <select id="getMembersByVague">
+        <include refid="baseQuery"/>
+        where
+        name like concat('%',#{info},'%') or
+        member_phone like concat('%',#{info},'%') or
+        address like concat('%' #{info},'%')
+    </select>
+
+    <!-- 通过手机号查询会员id  -->
+    <select id="selectIdByTel" resultType="java.lang.Integer">
+        select member_id
+        from member
+        where member_phone = #{memberPhone}
+    </select>
+
+    <!--4. 查询会员数量-->
+    <select id="getAllMemberNumber" resultType="java.lang.Integer">
+        select count(*)
+        from member
+    </select>
+
+    <!--5. 新增会员-->
+    <insert id="insertMember">
+        insert into member (member_id, member_number, member_password, member_name, member_sex, member_type,
+                            member_birth, member_phone, member_address, member_start_time, member_end_time)
+        values (#{memberID}, #{memberNumber}, #{memberPassword}, #{memberName}, #{memberSex}, #{memberType},
+                #{memberBirth}, #{memberPhone}, #{memberAddress}, #{memberStartTime}, #{memberEndTime})
+    </insert>
+
+    <!--6. 根据id修改会员信息-->
+    <update id="updateMember">
+        update member
+        set member_id= #{memberID},
+            member_number= #{memberNumber},
+            member_password= #{memberPassword},
+            member_name=#{memberName},
+            member_sex= #{memberSex},
+            member_type= #{memberType},
+            member_birth= #{memberBirth},
+            member_phone= #{memberPhone},
+            member_address= #{memberAddress},
+            member_start_time= #{memberStartTime},
+            member_end_time= #{memberEndTime}
+    </update>
+
+    <!--7. 根据id删除会员-->
+    <delete id="deleteMember">
+        delete
+        from member
+        where member_id = #{id}
+    </delete>
+
+    <!--是否保留这个功能？    -->
+    <!--8. 批量注册会员-->
+    <insert id="insertMemberByBatch">
+        insert into member (member_id, member_number, member_password, member_name, member_sex, member_type,
+        member_birth, member_phone, member_address, member_start_time, member_end_time)
+        values
+        <foreach collection="members" item="member" separator=",">
+            (#{memberID}, #{memberNumber}, #{memberPassword}, #{memberName}, #{memberSex}, #{memberType},
+            #{memberBirth}, #{memberPhone}, #{memberAddress}, #{memberStartTime}, #{memberEndTime})
+        </foreach>
+    </insert>
+
+</mapper>

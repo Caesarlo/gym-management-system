@@ -1,6 +1,7 @@
 package com.gym.dao;
 
 import com.gym.entity.CourseCoach;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
  * @description:
  * @create: 2022-11-17 11:37
  **/
+@Mapper
 public interface CourseCoachMapper {
 
     /**

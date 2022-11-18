@@ -4,17 +4,17 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gym.dao.CourseCoachMapper">
     <sql id="course_field">
-        id
-        ,course_name,course_coach,course_time,course_count,course_already,course_date
+        course_id
+        ,course_name,coach_id,course_time,course_count,course_already,course_date
     </sql>
     <sql id="coach_field">
-        id
+        course_id
         ,coach_name,coach_height,coach_weight,coach_header
     </sql>
 
-    <resultMap id="course_coach" type="CourseCpach">
+    <resultMap id="course_coach" type="CourseCoach">
         <association property="coach" javaType="Coach">
-            <id property="coachId" column="id"/>
+            <id property="coachId" column="coach_id"/>
             <result property="coachName" column="coach_name"/>
         </association>
         <association property="courseInfo" javaType="CourseInfo">
@@ -24,32 +24,32 @@
     </resultMap>
 
     <select id="getAllCourseCoach" resultMap="course_coach">
-        select course.id, course_name, coach.id, coach_name
+        select course.course_id, course_name,  coach_name,course_time,course_count,course_already,course_date
         from course,
              coach,
              coach_course
-        where course.id = coach_course.id_course
-          and coach_course.id_coach = coach.id
+        where course.course_id = coach_course.id_course
+          and coach_course.id_coach = coach.coach_id
     </select>
 
     <select id="selectByCoach" resultMap="course_coach">
-        select course.id, course_name, coach.id, coach_name
+        select course.course_id, course_name, coach.coach_id, coach_name
         from course,
              coach_course,
              coach
-        where course.id = coach_course.id
-          and coach_course.id = coach.id
-          and (coach.id LIKE ('%', #{coachKey}, '%') or coach_name LIKE ('%', #{coachKey}, '%'))
+        where course.course_id = coach_course.id_course
+          and coach_course.id_coach = coach.coach_id
+          and (coach.coach_id LIKE ('%', #{coachKey}, '%') or coach_name LIKE ('%', #{coachKey}, '%'))
     </select>
 
     <select id="selectByCourse" resultMap="course_coach">
-        select course.id, course_name, coach.id, coach_name
+        select course.course_id, course_name, coach.id, coach_name
         from course,
              coach_course,
              coach
-        where course.id = coach_course.id
-          and coach_course.id = coach.id
-          and (course.id LIKE ('%', #{courseKey}, '%') or course_name LIKE ('%', #{courseKey}, '%'))
+        where course.course_id = coach_course.id_course
+          and coach_course.id_coach = coach.coach_id
+          and (course.course_id LIKE ('%', #{courseKey}, '%') or course_name LIKE ('%', #{courseKey}, '%'))
     </select>
 
     <select id="selectOne" resultType="CourseCoach">

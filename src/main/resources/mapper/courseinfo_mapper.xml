@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gym.dao.CourseInfoMapper">
+    <sql id="baseQuery">
+        select course_id,
+               course_name,
+               coach_id,
+               course_time,
+               course_count,
+               course_already,
+               course_date
+        from course
+    </sql>
+
+    <!--1. 根据id查询课程信息-->
+    <select id="getCourseInfoById" resultType="com.gym.entity.CourseInfo">
+        <include refid="baseQuery"/>
+        where course_id = #{id}
+    </select>
+
+    <!--2. 查询所有课程信息-->
+    <select id="getAllCourseInfo" resultType="com.gym.entity.CourseInfo">
+        <include refid="baseQuery"/>
+    </select>
+
+    <!--3. 根据课程名字模糊查询信息-->
+    <select id="getAllCourseInfoByName" resultType="com.gym.entity.CourseInfo">
+        <include refid="baseQuery"/>where course_name like concat('%',#{keyword},'%')
+    </select>
+
+    <!--4. 查询所有课程数量-->
+    <select id="getAllCourseInfoNumber" resultType="java.lang.Integer">
+        select count(*)
+        from course
+    </select>
+
+    <!--5. 新增课程信息-->
+    <insert id="insertCourseInfo">
+        INSERT INTO course(course_name, coach_id, course_time, course_count, course_already)
+        VALUES (#{courseName}, #{courseCoach}, #{courseTime}, #{courseCount}, #{courseAlready})
+    </insert>
+
+    <!--6. 删除课程信息-->
+    <delete id="deleteCourseInfo">
+        delete
+        from course
+        where course_id = #{id}
+    </delete>
+
+    <!--7. 更新课程信息-->
+    <update id="updateCourseInfo">
+        update course
+        set course_name=#{courseName},
+            coach_id=#{courseCoach},
+            course_time=#{courseTime},
+            course_count=#{courseCount},
+            course_already=#{courseAlready}
+where course_id=#{courseId}
+    </update>
+
+
+</mapper>

@@ -20,6 +20,7 @@ import java.io.Serializable;
 @ToString
 public class Coach implements Serializable {
     //教练id
+    @NotNull(message = "教练编号为空！")
     private String coachId;
 
     //教练姓名
@@ -27,14 +28,11 @@ public class Coach implements Serializable {
     private String coachName;
 
     //教练身高
-    @NotNull(message = "身高为空！")
     private String coachHeight;
 
     //体重
-    @NotNull(message = "体重为空")
     private String coachWeight;
 
     //教练头像
-    @NotNull(message = "头像为空！")
     private String coachHeader;
 }

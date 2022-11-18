@@ -8,7 +8,7 @@ import lombok.ToString;
 /**
  * @program: gym-management-system
  * @author: GUMP
- * @description:
+ * @description: 教练课程关系表实体
  * @create: 2022-11-17 13:19
  **/
 
@@ -21,10 +21,11 @@ public class CourseCoach {
     /**
      * 教练引用
      */
-    private Coach coach;
+
+    private Integer coachId;
 
     /**
      * 课程引用
      */
-    private CourseInfo courseInfo;
+    private Integer courseId;
 }
