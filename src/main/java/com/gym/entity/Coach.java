@@ -35,4 +35,6 @@ public class Coach implements Serializable {
 
     //教练头像
     private String coachHeader;
+
+
 }

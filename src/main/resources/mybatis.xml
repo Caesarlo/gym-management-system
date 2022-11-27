@@ -13,16 +13,13 @@
     </settings>
     <typeAliases>
         <!--其实可以使用package标签批量别名的-->
-        <typeAlias type="com.gym.entity.Equipment" alias="Equipment"/>
-        <typeAlias type="com.gym.entity.EquipType" alias="EquipType"/>
-
         <typeAlias type="com.gym.entity.Coach" alias="Coach"/>
         <typeAlias type="com.gym.entity.Member" alias="Member"/>
-        <typeAlias type="com.gym.entity.CourseInfo" alias="CourseInfo"/>
+        <typeAlias type="com.gym.entity.Course" alias="CourseInfo"/>
         <typeAlias type="com.gym.entity.CourseCoach" alias="CourseCoach"/>
         <typeAlias type="com.gym.entity.CourseMember" alias="CourseMember"/>
-
-        <typeAlias type="com.gym.entity.MemberCard" alias="MemberCard"/>
+        <typeAlias type="com.gym.entity.PayProject" alias="PayProject"/>
+        <typeAlias type="com.gym.entity.User_temp" alias="User"/>
         <typeAlias type="com.gym.entity.SignIn" alias="SignIn"/>
     </typeAliases>
 </configuration>

@@ -58,7 +58,7 @@ public interface MemberMapper {
      * 根据会员id删除会员
      * @param id
      */
-    void deleteMember(Integer id);
+    void deleteMember(String id);
 
     /**
      * 批量注册会员

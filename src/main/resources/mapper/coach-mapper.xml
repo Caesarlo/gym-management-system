@@ -27,6 +27,7 @@
     <select id="getCoachByVague" resultType="com.gym.entity.Coach">
         <include refid="baseQuery"/>
         where
+--             id还未添加
         coach_name like concat('%',#{keywords},'%') or
         coach_height like concat('%',#{keywords},'%') or
         coach_weight like concat('%',#{keywords},'%') or

@@ -20,7 +20,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class CourseInfo implements Serializable {
+public class Course implements Serializable {
     //课程号 自增
     @NotNull(message = "课程号为空！")
     private String courseId;
@@ -44,5 +44,8 @@ public class CourseInfo implements Serializable {
 
     //发布时间
     private Timestamp courseData;
+
+
+
 
 }

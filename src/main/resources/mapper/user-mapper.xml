@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gym.dao.UserMapper">
+    <sql id="baseQuery">
+        select id,
+               username,
+               passwrod,
+               last_login_time,
+               login_count,
+               phone,
+               age,
+               name,
+               role
+        from user
+    </sql>
+
+    <!--1. 模糊查询-->
+    <select id="selectLimitUser" resultType="com.gym.entity.User">
+        <include refid="baseQuery"/>
+        <bind name="idLike" value="'%' + id + '%'" />
+        <bind name="usernameLike" value="'%' + username + '%'" />
+        where 1=1
+        <if test='stime!=null and stime!=\"\"'> and last_login_time&gt;#{stime} </if> -- &gt;是大于 下一个是小于
+        <if test='etime!=null and etime!=\"\"'> and last_login_time&lt;#{etime} </if>
+        <if test='idUsername!=null and idUsername!=\"\"'>
+            and (id like #{idLike}
+            or username like #{usernameLike})
+        </if>
+        order by id asc limit #{start},#{end}
+    </select>
+
+    <!--2. 查询所有用户-->
+    <select id="getAllUser" resultType="com.gym.entity.User">
+        <include refid="baseQuery"/>
+    </select>
+
+
+    <!--3. 更新信息-->
+    <delete id="updateUserByID">
+        update user
+        <trim prefix='set ' suffixOverrides=','>
+            id = #{id},
+            <if test='username!=null and username!=\"\"'> username=#{username},</if>
+            <if test='password!=null and password!=\"\"'>password=#{password},</if>
+            <if test='time!=null and time!=\"\"'>last_login_time=#{time},</if>
+            <if test='loginCount!=null and loginCount!=\"\"'>login_count=#{loginCount},</if>
+            <if test='phone!=null and phone!=\"\"'>phone=#{phone},</if>
+            <if test='age!=null and age!=\"\"'>age=#{age},</if>
+            <if test='name!=null and name!=\"\"'>name=#{name},</if>
+            <if test='role!=null and role!=\"\"'>role=#{role}</if>
+        </trim> where id=#{id}
+    </delete>
+
+    <!--4. 删除新息-->
+    <update id="deleteUserByID">
+        delete from user where id=#{id}
+    </update>
+
+    <!--5. 登录-->
+    <select id="selectUserByLogin">
+        <include refid="baseQuery"/>
+        <where>
+            username = #{username}
+            and password = #{password}
+        </where>
+    </select>
+
+    <insert id="insertUser">
+        insert into user(username,password,last_login_time,login_count,phone,age,name,role) value
+        <trim prefix='(' suffixOverrides=','>
+        <if test='username!=null and username!=\"\"'> #{username},</if>
+        <if test='password!=null and password!=\"\"'>#{password},</if>
+        <if test='time!=null and time!=\"\"'>#{time},</if>
+        0,
+        <if test='phone!=null and phone!=\"\"'>#{phone},</if>
+        <if test='age!=null and age!=\"\"'>#{age},</if>
+        <if test='name!=null and name!=\"\"'>#{name},</if>
+        <if test='role!=null and role!=\"\"'>#{role}</if>
+        </trim>  )
+    </insert>
+<!--    数据库每个值对应实体的值-->
+    <resultMap id="UserEntity" type="com.gym.entity.User">
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <!-- property对应实体类的属性名称，column为数据库字段名 -->
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="lastLoginTime" property="last_login_time"/>
+        <result column="loginCount" property="login_count"/>
+        <result column="phone" property="phone"/>
+        <result column="age" property="age" />
+        <result column="name" property="name"/>
+        <result column="role" property="role"/>
+    </resultMap>
+
+</mapper>

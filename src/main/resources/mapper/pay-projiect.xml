@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gym.entity.PayProjectMapper">
+    <sql id="selectFields">
+        project_name
+        ,project_price,project_date,project_content
+    </sql>
+
+    <select id="selectById" resultType="com.gym.entity.PayProject">
+        select
+        <include refid="selectFields"/>
+        from pay_project
+        where pay_project_id =#{payProjectId}
+    </select>
+
+    <select id="selectByName" resultType="com.gym.entity.PayProject">
+        select
+        <include refid="selectFields"/>
+        from pay_project
+        where project_name =#{projectName}
+    </select>
+
+    <insert id="insertPayProject" parameterType="com.gym.entity.PayProject" keyProperty="payProjectId">
+        insert into pay_project (project_name, project_price, project_content)
+        values (#{projectName}, #{projectPrice}, #{projectContent})
+    </insert>
+
+    <delete id="deletePayProject">
+        delete
+        from pay_project
+        where pay_project_id = #{payProjectId}
+    </delete>
+
+    <update id="updatePayProject" parameterType="com.gym.entity.PayProject">
+        update pay_project
+        set project_name   = #{projectName},
+            project_price  = #{projectPrice},
+            project_content=#{projectContent}
+        where pay_project_id = #{payProjectId}
+    </update>
+</mapper>

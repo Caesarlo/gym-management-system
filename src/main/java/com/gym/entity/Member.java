@@ -21,7 +21,7 @@ import java.util.Date;
 @NoArgsConstructor
 @ToString
 public class Member {
-    //会员id
+    //会员id  自增
     @NotNull(message = "会员id不难为空！")
     private Integer memberId;
 
@@ -50,8 +50,8 @@ public class Member {
 
     //联系电话
     @NotNull(message = "会员电话不能为空")
-    @Length(min = 11,max = 11,message = "电话号码长度为11位有效数字！")
-    @Pattern(regexp = "^1[34578]\\d{9}$",message = "不符合规格的手机号码!")
+    @Length(min = 11, max = 11, message = "电话号码长度为11位有效数字！")
+    @Pattern(regexp = "^1[34578]\\d{9}$", message = "不符合规格的手机号码!")
     private String memberPhone;
 
     //住址

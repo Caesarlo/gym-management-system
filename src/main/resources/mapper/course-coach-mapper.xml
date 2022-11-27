@@ -17,7 +17,7 @@
             <id property="coachId" column="coach_id"/>
             <result property="coachName" column="coach_name"/>
         </association>
-        <association property="courseInfo" javaType="CourseInfo">
+        <association property="course" javaType="CourseInfo">
             <id property="courseId" column="course_id"/>
             <result property="courseName" column="course_name"/>
         </association>

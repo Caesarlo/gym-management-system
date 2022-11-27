@@ -1,6 +1,6 @@
 package com.gym.dao;
 
-import com.gym.entity.CourseInfo;
+import com.gym.entity.Course;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
  * @create: 2022-11-18 15:40
  **/
 @Mapper
-public interface CourseInfoMapper {
+public interface CourseMapper {
 
     /**
      * 通过id查询课程信息
@@ -20,14 +20,14 @@ public interface CourseInfoMapper {
      * @param id
      * @return 课程信息
      */
-    CourseInfo getCourseInfoById(String id);
+    Course getCourseById(String id);
 
     /**
      * 查询所有课程信息
      *
      * @return 课程信息
      */
-    List<CourseInfo> getAllCourseInfo();
+    List<Course> getAllCourse();
 
 
     /**
@@ -36,34 +36,34 @@ public interface CourseInfoMapper {
      * @param keyword
      * @return 课程信息
      */
-    List<CourseInfo> getAllCourseInfoByName(String keyword);
+    List<Course> getAllCourseByName(String keyword);
 
     /**
      * 新增课程信息
      *
-     * @param courseInfo
+     * @param course
      */
-    void insertCourseInfo(CourseInfo courseInfo);
+    void insertCourse(Course course);
 
     /**
      * 更新课程信息
      *
-     * @param courseInfo
+     * @param course
      */
-    void updateCourseInfo(CourseInfo courseInfo);
+    void updateCourse(Course course);
 
     /**
      * 根据id删除课程信息
      *
      * @param id
      */
-    void deleteCourseInfo(String id);
+    void deleteCourse(String id);
 
     /**
      * 查询所有课程信息数量
      *
      * @return 课程信息数量
      */
-    Integer getAllCourseInfoNumber();
+    Integer getAllCourseNumber();
 
 }

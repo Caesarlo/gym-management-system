@@ -13,6 +13,8 @@ public class Result<T> implements Serializable {
     //状态码
     private int code;
 
+    private int count;
+
     //消息
     private String msg;
 
@@ -48,6 +50,13 @@ public class Result<T> implements Serializable {
         this.data = data;
     }
 
+    public Result(int code, String msg, int count, T data) {
+        this.code = code;
+        this.count = count;
+        this.msg = msg;
+        this.data = data;
+    }
+
     public int getCode() {
         return code;
     }
@@ -70,5 +79,13 @@ public class Result<T> implements Serializable {
 
     public void setData(T data) {
         this.data = data;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 }

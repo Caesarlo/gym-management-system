@@ -90,7 +90,7 @@
         member_birth, member_phone, member_address, member_start_time, member_end_time)
         values
         <foreach collection="members" item="member" separator=",">
-            (#{memberID}, #{memberNumber}, #{memberPassword}, #{memberName}, #{memberSex}, #{memberType},
+            (#{memberId}, #{memberNumber}, #{memberPassword}, #{memberName}, #{memberSex}, #{memberType},
             #{memberBirth}, #{memberPhone}, #{memberAddress}, #{memberStartTime}, #{memberEndTime})
         </foreach>
     </insert>
